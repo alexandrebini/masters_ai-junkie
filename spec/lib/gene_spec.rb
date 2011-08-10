@@ -1,5 +1,4 @@
-require './lib/gene'
-require './lib/gene_constants'
+require "spec_helper"
 
 describe Gene do
   it 'can be created by passing a 4-bit string' do
@@ -31,18 +30,12 @@ describe Gene do
     Gene.new('2').to_s.should == '2 (0010)'
   end
 
-  it 'should provide constants' do
-    Two.should == Gene.new('2')
-    lambda { Casa }.should raise_error
-    Minus.should == Gene.new('-')
-  end
-
   it 'should be able to generate a random gene' do
     g1 = Gene.random
   end
 
   it 'should be deep cloned' do
-    g1 = Three
+    g1 = Gene.new('3')
     g2 = g1.clone
     g1.should == g2
     g1.bits.should == g2.bits
@@ -53,7 +46,7 @@ describe Gene do
   end
 
   it 'should be frozen' do
-    g1 = Six
+    g1 = Gene.new('6')
     lambda { g1.bits[1] = '2' }.should_not raise_error
 
     g1.freeze
