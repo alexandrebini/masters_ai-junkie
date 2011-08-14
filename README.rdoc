@@ -1,8 +1,7 @@
 = ai-junkie
 
 == Problem
-Described here:
-http://www.ai-junkie.com/ga/intro/gat3.html
+Full description here: http://www.ai-junkie.com/ga/intro/gat3.html
 
 == Based on
 * http://www.seducaotecnologica.com.br/algoritmo-geneticos-ruby-1
