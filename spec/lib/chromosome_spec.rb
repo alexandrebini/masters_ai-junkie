@@ -32,6 +32,7 @@ describe Chromosome do
     g1.expression.should == '1+5+6'
     g2.expression.should == '4+2+3'
   end
+
   it 'fitness score can be assigned thats inversely proportional to the difference between the solution and the value a decoded chromosome represents' do
     Chromosome.new(:genes => %w(5 * 8 + 2).map{|r| Gene.new r}).fitness(42).should == 0
     Chromosome.new(:genes => %w(3 * 7).map{|r| Gene.new r}).fitness(42).should == 1.to_f/(42-21)

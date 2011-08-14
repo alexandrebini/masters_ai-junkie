@@ -3,7 +3,7 @@ class Chromosome
   attr_reader :genes, :target, :fitness
 
   def initialize(args={})
-    options = { :length => 9 }
+    options = { :length => 5 }
     options.merge!(args).each do |k,v|
       instance_variable_set("@#{k}", v) unless v.nil?
     end
@@ -17,10 +17,13 @@ class Chromosome
   end
 
   def value
-    puts "value get: #{expression}"
     eval(expression.to_s)
     rescue ZeroDivisionError
       0
+  end
+
+  def to_s
+    @genes.map(&:value).join
   end
 
   def valid_genes
@@ -56,9 +59,10 @@ class Chromosome
 
   def mutate(mutation_rate)
     for gene in genes
-      next if rand(1000)/1000.to_f <= mutation_rate
+      next if rand(1000)/1000.to_f > mutation_rate
       gene.swap! rand(4)
     end
+    @fitness = nil
   end
 
   def crossover(chromosome, crossover_rate, position=nil)
@@ -69,6 +73,7 @@ class Chromosome
       genes[index] = chromosome.genes[index]
       chromosome.genes[index] = tmp_gene
     end
+    @fitness = nil
   end
 
 end

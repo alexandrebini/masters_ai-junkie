@@ -20,7 +20,7 @@ class Gene
   end
 
   def to_s
-    "#{value} (#{bits})"
+    value
   end
 
   def clone
@@ -45,7 +45,7 @@ class Gene
   end
 
   def self.random
-    Gene.new dec2bin(rand 13)
+    Gene.new dec2bin(rand 14)
   end
 
   def is_number?
@@ -72,8 +72,8 @@ class Gene
         new_bits[index] = new_value
         Gene.new new_bits
       else
-        bits[index] = new_value
-        value = Gene.bin2char(bits)
+        @bits[index] = new_value
+        @value = Gene.bin2char(bits)
         self
       end
     end

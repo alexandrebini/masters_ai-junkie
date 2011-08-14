@@ -24,10 +24,39 @@ describe GA do
     lambda{ GA.new(:target => 42).selection }.should_not raise_error
   end
 
+  it 'selection should exclude the selected element from population' do
+    ga = GA.new(:target => 42)
+    chromosome1 = ga.selection
+    chromosome2 = ga.selection
+    chromosome2.should_not == chromosome1
+  end
+
   context 'simulation' do
-    it 'return right expression for 42' do
-      ga = GA.new(:target => 42)
+    it 'return right expression for 10' do
+      ga = GA.new(:target => 10, :chromosome_length => 7, :mutation_rate => 0.001, :crossover_rate => 0.1, :length => 2)
       ga.run
+      if chromosome = ga.fittest
+        chromosome.value.should == 10
+      end
+      puts "\ntarget: 10 \n#{ga.to_s}\n"
+    end
+
+    it 'return right expression for 42' do
+      ga = GA.new(:target => 42, :chromosome_length => 10, :length => 10)
+      ga.run
+      if chromosome = ga.fittest
+        chromosome.value.should == 42
+      end
+      puts "\ntarget: 42 \n#{ga.to_s}\n"
+    end
+
+    it 'return right expression for 1000' do
+      ga = GA.new(:target => 1000)
+      ga.run
+      if chromosome = ga.fittest
+        chromosome.value.should == 1000
+      end
+      puts "\ntarget: 1000 \n#{ga.to_s}\n"
     end
   end
 end

@@ -4,7 +4,7 @@ public class GA {
 	
 	public static void main(String[] args)  {
 		//new GA().doIt(Integer.parseInt(args[0]));
-		new GA().doIt(100);
+		new GA().doIt(1000);
 	}
 	
 	// Static info
@@ -111,7 +111,6 @@ public class GA {
 				// Append the chromo
 				chromo.append(binString);
 			}
-			
 			// Score the new cromo
 			scoreChromo(target);
 		}

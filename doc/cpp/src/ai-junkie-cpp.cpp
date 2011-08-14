@@ -95,7 +95,8 @@ int main() {
 			// test and update the fitness of every chromosome in the
 			// population
 			for (int i = 0; i < POP_SIZE; i++) {
-				Population[i].fitness = AssignFitness(Population[i].bits, Target);
+				Population[i].fitness = AssignFitness(Population[i].bits,
+						Target);
 
 				TotalFitness += Population[i].fitness;
 			}
@@ -180,10 +181,14 @@ string GetRandomBits(int length) {
 
 	for (int i = 0; i < length; i++) {
 		if (RANDOM_NUM > 0.5f)
+
 			bits += "1";
+
 		else
+
 			bits += "0";
 	}
+
 	return bits;
 }
 
@@ -269,6 +274,7 @@ int ParseBits(string bits, int* buffer) {
 	//	evolution of the solution
 	for (int i = 0; i < cBuff; i++) {
 		if ((buffer[i] == 13) && (buffer[i + 1] == 0))
+
 			buffer[i] = 10;
 	}
 
@@ -294,26 +300,40 @@ float AssignFitness(string bits, int target_value) {
 	for (int i = 0; i < num_elements - 1; i += 2) {
 		switch (buffer[i]) {
 		case 10:
+
 			result += buffer[i + 1];
 			break;
+
 		case 11:
+
 			result -= buffer[i + 1];
 			break;
+
 		case 12:
+
 			result *= buffer[i + 1];
 			break;
+
 		case 13:
+
 			result /= buffer[i + 1];
 			break;
+
 		}//end switch
+
 	}
 
 	// Now we calculate the fitness. First check to see if a solution has been found
 	// and assign an arbitarily high fitness score if this is so.
+
 	if (result == (float) target_value)
+
 		return 999.0f;
+
 	else
+
 		return 1 / (float) fabs((double) (target_value - result));
+	//	return result;
 }
 
 //---------------------------------PrintChromo---------------------------------------

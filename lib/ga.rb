@@ -4,12 +4,12 @@ class GA
 
   def initialize(args)
     raise "Please give the target number. Ex: GA.new(:target => 42)" unless args[:target]
-    options = { :length => 40, :mutation_rate => 0.001, :crossover_rate => 0.7, :max_generations => 500 }
+    options = { :length => 40, :mutation_rate => 0.001, :crossover_rate => 0.7, :max_generations => 10000, :chromosome_length => 30 }
     options.merge!(args).each do |k,v|
       instance_variable_set("@#{k}", v) unless v.nil?
     end
     @generations = 0
-    @population = Array.new(options[:length]){ Chromosome.new }
+    @population = Array.new(options[:length]){ Chromosome.new(:length => options[:chromosome_length]) }
   end
 
   def fittest
@@ -20,35 +20,40 @@ class GA
     population.sort{ |x,y| x.fitness(target) <=> y.fitness(target) }.reverse
   end
 
-  def selection
-    total_fitness = population.inject(0) { |sum,x| sum+x.fitness(target) }
+  def selection(current_population=@population)
+    total_fitness = current_population.inject(0) { |sum,x| sum+x.fitness(target) }
     slice = rand(1000)/1000.to_f * total_fitness
     fitness = 0
-    for chromosome in population
+
+    for chromosome in current_population
       fitness += chromosome.fitness(target)
-      return chromosome if fitness >= slice
+      return current_population.delete(chromosome) if fitness >= slice
     end
-    nil
+    current_population.delete current_population.first
   end
 
-  def finish
-    if chromosome = fittest
-      puts "Solution: #{chromosome.expression}"
-    else
-      puts "No solution found. Here the top five solutions"
-      population_by_fitness[0..4].each{ |chromosome| puts "\t#{chromosome.expression}" }
+  def to_s
+    "Generations: #{generations}\n".tap do |output|
+      if chromosome = fittest
+        output << "Solution: #{chromosome.expression}"
+      else
+        output << "No solution found. Top five solutions: "
+        output << population_by_fitness[0..4].map{ |chromosome| chromosome.expression }.join("    ")
+      end
     end
-    puts "Generations: #{generations}"
   end
 
   def run
     while @generations < max_generations
-      puts "#{@generations}/#{max_generations}"
       next_population = []
 
-      (population.size/2).times do
-        chromosome1 = selection
-        chromosome2 = selection
+      current_population = @population.clone
+
+      (@population.size/2).times do
+        chromosome1 = selection(current_population)
+        chromosome2 = selection(current_population)
+
+        #output = "before: #{chromosome1.expression} (#{chromosome1.value})"
 
         # crossover
         chromosome1.crossover chromosome2, crossover_rate
@@ -57,18 +62,19 @@ class GA
         chromosome1.mutate mutation_rate
         chromosome2.mutate mutation_rate
 
+        #puts output + "\nafter: #{chromosome1.expression} (#{chromosome1.value})\n\n"
+
         next_population.push(chromosome1, chromosome2)
       end
 
       # replace the population
-      population = next_population
+      @population = next_population
 
       # increase population counter
       @generations += 1
 
       break if fittest
     end
-    finish
   end
 
 end
