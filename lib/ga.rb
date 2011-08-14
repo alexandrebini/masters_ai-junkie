@@ -1,3 +1,6 @@
+require File.expand_path('../gene', __FILE__)
+require File.expand_path('../chromosome', __FILE__)
+
 class GA
   attr_reader :target, :population, :length, :generations
   attr_reader :mutation_rate, :crossover_rate, :max_generations
@@ -32,8 +35,8 @@ class GA
     current_population.delete current_population.first
   end
 
-  def to_s
-    "Generations: #{generations}\n".tap do |output|
+  def print
+    "Generations: #{generations}  ".tap do |output|
       if chromosome = fittest
         output << "Solution: #{chromosome.expression}"
       else
@@ -75,6 +78,7 @@ class GA
 
       break if fittest
     end
+    print
   end
 
 end

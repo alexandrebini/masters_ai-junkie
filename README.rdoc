@@ -4,6 +4,17 @@
 Described here:
 http://www.ai-junkie.com/ga/intro/gat3.html
 
+== Usage
+  $ git clone git@github.com:alexandrebini/masters_ai-junkie.git ai-junkie
+  $ cd ai-junkie
+  $ irb
+  > require './lib/ga'
+  => true
+  > ga = GA.new(:target => 42, :chromosome_length => 10, :length => 10)
+  => #<GA:0x0000000124a5f8 @length=10, @mutation_rate=0.001, @crossover_rate=0.7, @max_generations=10000, @chromosome_length=10, @target=42, @generations=0, @population=[047-215//9, 46//+56+3*, 54*/00+997, 9*7+624942, *620-98/5*, 62*-49--6-, -5*001-6*/, /+022611*5, +73118*/15, 15378*5465]>
+  > ga.run
+  => "Generations: 688   Solution: 6+4*9"
+
 == Based on
 * http://www.seducaotecnologica.com.br/algoritmo-geneticos-ruby-1
 * http://www.ai-junkie.com/files/GA.java

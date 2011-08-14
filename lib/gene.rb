@@ -1,4 +1,4 @@
-require 'util'
+require File.expand_path('../util', __FILE__)
 
 class Gene
   extend Util

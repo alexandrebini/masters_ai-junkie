@@ -38,7 +38,7 @@ describe GA do
       if chromosome = ga.fittest
         chromosome.value.should == 10
       end
-      puts "\ntarget: 10 \n#{ga.to_s}\n"
+      puts "\ntarget: 10 \n#{ga.print}\n"
     end
 
     it 'return right expression for 42' do
@@ -47,7 +47,7 @@ describe GA do
       if chromosome = ga.fittest
         chromosome.value.should == 42
       end
-      puts "\ntarget: 42 \n#{ga.to_s}\n"
+      puts "\ntarget: 42 \n#{ga.print}\n"
     end
 
     it 'return right expression for 1000' do
@@ -56,7 +56,7 @@ describe GA do
       if chromosome = ga.fittest
         chromosome.value.should == 1000
       end
-      puts "\ntarget: 1000 \n#{ga.to_s}\n"
+      puts "\ntarget: 1000 \n#{ga.print}\n"
     end
   end
 end
