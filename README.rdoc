@@ -1,8 +1,7 @@
 = ai-junkie
 
 == Problem
-Described here:
-http://www.ai-junkie.com/ga/intro/gat3.html
+Full description here: http://www.ai-junkie.com/ga/intro/gat3.html
 
 == Usage
   $ git clone git@github.com:alexandrebini/masters_ai-junkie.git ai-junkie
