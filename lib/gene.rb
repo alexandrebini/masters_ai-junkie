@@ -44,9 +44,18 @@ class Gene
     swap_impl(index, value, true)
   end
 
-
   def self.random
-    Gene.new dec2bin(rand 16)
+    Gene.new dec2bin(rand 13)
+  end
+
+  def is_number?
+    return false if value.nil?
+    !value.match(/\d+/).nil?
+  end
+
+  def is_operator?
+    return false if value.nil?
+    !value.match(/\D+/).nil?
   end
 
   private

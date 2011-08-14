@@ -43,8 +43,6 @@ module Util
       when 11 then '1011'
       when 12 then '1100'
       when 13 then '1101'
-      when 14 then '1110'
-      when 15 then '1111'
       else nil
     end
     bits.clone
@@ -69,8 +67,6 @@ module Util
       when '1011' then '-'
       when '1100' then '*'
       when '1101' then '/'
-      when '1110' then 'X'
-      when '1111' then 'X'
       else nil
     end
     c.clone

@@ -4,7 +4,7 @@ public class GA {
 	
 	public static void main(String[] args)  {
 		//new GA().doIt(Integer.parseInt(args[0]));
-		new GA().doIt(333);
+		new GA().doIt(100);
 	}
 	
 	// Static info
@@ -21,8 +21,8 @@ public class GA {
 		int gen=0;		
 
 		// Create the pool
-		ArrayList pool = new ArrayList(poolSize);
-		ArrayList newPool = new ArrayList(pool.size());
+		ArrayList<Chomosone> pool = new ArrayList<Chomosone>(poolSize);
+		ArrayList<Chomosone> newPool = new ArrayList<Chomosone>(pool.size());
 		
 		// Generate unique cromosomes in the pool
 		for (int x=0;x<poolSize;x++) pool.add(new Chomosone(target));
@@ -67,7 +67,7 @@ public class GA {
 
 
 	//---- Chomosone Class -----
-	private Chomosone selectMember(ArrayList l) { 
+	private Chomosone selectMember(ArrayList<Chomosone> l) { 
 
 		// Get the total fitness		
 		double tot=0.0;
@@ -91,7 +91,7 @@ public class GA {
 	// Genetic Algorithm Node
 	private static class Chomosone {
 		// The chromo
-		StringBuffer chromo		  = new StringBuffer(chromoLen * 4);
+		StringBuffer chromo	= new StringBuffer(chromoLen * 4);
 		public StringBuffer decodeChromo = new StringBuffer(chromoLen * 4);
 		public double score;
 		public int total;
@@ -101,9 +101,6 @@ public class GA {
 			
 			// Create the full buffer
 			for(int y=0;y<chromoLen;y++) {
-				// What's the current length
-				int pos = chromo.length();
-				
 				// Generate a random binary integer
 				String binString = Integer.toBinaryString(rand.nextInt(ltable.length));
 				int fillLen = 4 - binString.length();
@@ -113,15 +110,12 @@ public class GA {
 				
 				// Append the chromo
 				chromo.append(binString);
-				
 			}
 			
 			// Score the new cromo
 			scoreChromo(target);
 		}
 					
-		public Chomosone(StringBuffer chromo) { this.chromo = chromo; }
-		
 		// Decode the string
 		public final String decodeChromo() {	
 

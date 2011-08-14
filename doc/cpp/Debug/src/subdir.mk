@@ -4,17 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../ga_tutorial.cpp 
+../src/ai-junkie-cpp.cpp 
 
 OBJS += \
-./ga_tutorial.o 
+./src/ai-junkie-cpp.o 
 
 CPP_DEPS += \
-./ga_tutorial.d 
+./src/ai-junkie-cpp.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-%.o: ../%.cpp
+src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
 	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
