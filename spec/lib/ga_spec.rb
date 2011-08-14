@@ -19,5 +19,16 @@ describe GA do
     lambda{ GA.new(:target => 42).generations }.should_not raise_error
     GA.new(:target => 42).generations.should == 0
   end
+
+  it 'select a member by roulete' do
+    lambda{ GA.new(:target => 42).selection }.should_not raise_error
+  end
+
+  context 'simulation' do
+    it 'return right expression for 42' do
+      ga = GA.new(:target => 42)
+      ga.run
+    end
+  end
 end
 

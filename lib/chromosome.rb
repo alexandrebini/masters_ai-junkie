@@ -1,9 +1,9 @@
 class Chromosome
 
-  attr_reader :genes
+  attr_reader :genes, :target, :fitness
 
   def initialize(args={})
-    options = { :length => 4 }
+    options = { :length => 9 }
     options.merge!(args).each do |k,v|
       instance_variable_set("@#{k}", v) unless v.nil?
     end
@@ -17,7 +17,8 @@ class Chromosome
   end
 
   def value
-    eval(expression)
+    puts "value get: #{expression}"
+    eval(expression.to_s)
     rescue ZeroDivisionError
       0
   end
@@ -41,9 +42,16 @@ class Chromosome
   end
 
   def fitness(target)
-    return nil if target.nil?
-    return 0 if  target == value
-    return 1.to_f / (target - value)
+    if @target != target || @fitness.nil?
+      @target = target
+      case
+        when target.nil? then @fitness = nil
+        when value.nil? then @fitness = 1
+        when target == value then @fitness = 0
+        else @fitness = 1.to_f / (target - value)
+      end
+    end
+    @fitness
   end
 
   def mutate(mutation_rate)

@@ -4,7 +4,7 @@ module Util
   # Good for creating genes by character
   # Ex: '4' => '0100'
   def char2bin(c)
-    bits = case c
+    case c
       when '0' then '0000'
       when '1' then '0001'
       when '2' then '0010'
@@ -21,14 +21,13 @@ module Util
       when '/' then '1101'
       else nil
     end
-    bits.clone
   end
 
   # Convert from a decimal to a 4-bit binary
   # Good for generating random genes
   # Ex 11 => '1011'
   def dec2bin(n)
-    bits = case n
+    case n
       when 0 then '0000'
       when 1 then '0001'
       when 2 then '0010'
@@ -45,14 +44,13 @@ module Util
       when 13 then '1101'
       else nil
     end
-    bits.clone
   end
 
   # Convert from 4-bit binary to a character
   # Good for calculating the value of the gene
   # Ex: '0011' => '3'
   def bin2char(bits)
-    c = case bits
+    case bits
       when '0000' then '0'
       when '0001' then '1'
       when '0010' then '2'
@@ -69,7 +67,6 @@ module Util
       when '1101' then '/'
       else nil
     end
-    c.clone
   end
 end
 
